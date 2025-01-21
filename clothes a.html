@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #381116;
+     
+        h1 {
+            text-align: center;
+            color: #E8D8C4;
+        }
+           }
+         .discount-banner {
+            background-color: #471d23; 
+            color: #E8D8C4;
+            text-align: center;
+            padding: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            box-shadow: 0 4px 2px -2px gray;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .sliding-text-banner {
+            display: inline-block;
+            animation: slide-banner 10s linear infinite;
+        }
+
+        @keyframes slide-banner {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            background-image: url('images/WhatsApp_Image.jpeg');
+            background-size: contain;
+            background-position: center;
+            padding: 50px;
+            position: relative;
+            transition: transform 1s ease-in-out; /* Added smooth transition */
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #381116b3; 
+            padding: 10px 20px;
+            border-radius: 10px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header h1 {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; 
+            font-size: 50px;
+            color: #E8D8C4;
+            margin: 0;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            max-width: 100px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-icon {
+            font-size: 24px;
+            color: #E8D8C4;
+            background-color: rgba(56, 17, 22, 0.7); 
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .search-bar {
+            width: 0;
+            overflow: hidden;
+            transition: width 0.4s ease-in-out;
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 10px;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            width: 200px;
+            box-sizing: border-box;
+        }
+
+        .search-container:hover .search-bar {
+            width: 200px;
+        }
+
+        .icon {
+            font-size: 20px;
+            color: #E8D8C4;
+            background-color: rgba(56, 17, 22, 0.7); 
+            padding: 5px 10px;
+            border-radius: 50%;
+            cursor: pointer; 
+            text-decoration: none;
+            margin-left: 0.5px; 
+            z-index: 10; /* Ensure icons are on top */
+        }
+
+        .icon:hover {
+            color: #C7B7A3;
+        }
+      
+
+         .products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            justify-items: center;
+        }
+        .product {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #eee3d6;
+            text-align: center;
+            width: 200px;
+        }
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .order-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 16px;
+            background-color: #471d23;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: background-color 0.3s ease;
+        }
+        .order-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.15);
+            transition: width 0.3s ease, height 0.3s ease, top 0.3s ease, left 0.3s ease;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+  .order-btn:hover::before {
+            width: 0;
+            height: 0;
+            top: 50%;
+            left: 50%;
+        }
+        .order-btn:hover {
+            background-color: #471d23;
+        }
+
+        .side-menu {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #471d23;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+        .side-menu a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #E8D8C4;
+            display: block;
+            transition: 0.3s;
+        }
+        .side-menu a:hover {
+            color: #C7B7A3;
+        }
+        .side-menu .close-btn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+       .open-btn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #471d23;
+            color: #E8D8C4;
+            padding: 10px 15px;
+            border: none;
+            transition: background-color 0.3s;
+            position: absolute;
+            top: 140px;
+            left: 20px;
+        }
+        .open-btn:hover {
+            background-color: #C7B7A3;
+        }
+        .categories {
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .logo img {
+            max-width: 150px;
+            height: auto;
+        }
+              
+
+        .footer {
+            background-color: #471d23;
+            color: #E8D8C4;
+            text-align: center; /* Center-align the text */
+            padding: 0.02px;
+            position: fixed; /* Fix the footer at the bottom */
+            left: 0; /* Align to the left edge */
+            bottom: 0; /* Align to the bottom of the page */
+            width: 100%; /* Stretch across the full width */
+        }
+
+        .footer a {
+            color: #C7B7A3;
+            text-decoration: underline;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Counter Badge Styles */
+        .cart-icon {
+            position: relative;
+            font-size: 20px;
+            color: #E8D8C4;
+            background-color: rgba(56, 17, 22, 0.7); 
+            padding: 5px 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-decoration: none;
+            margin-left: 0.5px;
+        }
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            background-color: white;  /* Changed background to white */
+            color: black;  /* Changed text color to black for visibility */
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+   <!-- Discount Banner -->
+    <div class="discount-banner">
+        <div class="sliding-text-banner">Enjoy exclusive discounts on trendy fits</div>
+    </div>
+    <!-- Header Section -->
+    <div class="header">
+        <div class="header-content">
+            <img src="c:\Users\Dell\Downloads\LUSTRE LANE LOGO.jpeg" alt="Logo" class="logo">
+            <h1>Lustre Lane</h1>
+            <div class="search-container">
+                <span class="search-icon" onclick="toggleSearchBar()"><i class="fas fa-search"></i></span>
+                <div class="search-bar" id="searchBar">
+                    <input type="text" placeholder="Search...">
+                </div>
+            </div>
+            <a href="cart.html" class="icon"><i class="fas fa-shopping-cart"></i></a>
+            <a href="contact.html" class="icon"><i class="fas fa-user"></i></a>
+            <a href="file:///C:/Users/iqra/OneDrive/Desktop/AICT%20Project%20Semester%2001/index.html" class="icon"><i class="fas fa-home"></i></a>
+        </div>
+    </div>
+
+    <!-- Categories Button -->
+    <div class="categories">
+        <button class="open-btn" onclick="openMenu()">☰ Menu</button>
+    </div>
+
+    <!-- Side Menu -->
+    <div id="sideMenu" class="side-menu">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
+        <a href="clothes a.html">Clothes</a>
+        <a href="shoes a.html">Shoes</a>
+        <a href="accessories a.html">Accessories</a>
+        <a href="scents a.html">Scents</a>
+        <a href="cart.html">Cart</a>
+    </div>
+<div id="notification" class="notification"></div>
+
+
+<div class="products">
+      <div class="product">
+        <img src="C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\IMG-20250119-WA0039.jpg" alt="Navy Hoodie">
+        <h2>Navy Hoodie</h2>
+        <p>PKR 6000</p>
+        <button class="order-btn" onclick="addToCart('Navy Hoodie', 6000, 'c:\\Users\\Dell\\Downloads\\60d3299454393066801964195b7f6d46.jpg', 'Clothes')">Order</button>
+    </div>
+    <div class="product">
+        <img src="C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\IMG-20250119-WA0008.jpg" alt="Zip-up knitted sweater">
+        <h2>Zip-up knitted sweater</h2>
+        <p>PKR 5100</p>
+        <button class="order-btn" onclick="addToCart('Zip-up knitted sweater', 5100, 'C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\.jpg', 'Clothes')">Order</button>
+    </div>
+    <div class="product">
+        <img src="C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\IMG-20250119-WA0010.jpg" alt="Polo-neck knitted sweater">
+        <h2>Polo-neck knitted sweater</h2>
+        <p>PKR 8500</p>
+        <button class="order-btn" onclick="addToCart('Polo-neck knitted sweater', 8500, 'C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\.jpg', 'Clothes')">Order</button>
+    </div>
+    <div class="product">
+        <img src="C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\IMG-20250119-WA0009.jpg" alt="White Wide-leg">
+        <h2>White Wide-leg</h2>
+        <p>PKR 6000</p>
+        <button class="order-btn" onclick="addToCart('White Wide-leg', 6000, 'C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\.jpg', 'Clothes')">Order</button>
+    </div>
+    <div class="product">
+        <img src="C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\IMG-20250119-WA0036.jpg" alt="Grey Hoodie">
+        <h2>Grey Hoodie</h2>
+        <p>PKR 6500</p>
+        <button class="order-btn" onclick="addToCart('Grey Hoodie', 6500, 'C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\.jpg', 'Clothes')">Order</button>
+    </div>
+    <div class="product">
+        <img src="C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\Jacket pia.jpeg" alt="Jacket pia">
+        <h2>Jacket pia</h2>
+        <p>PKR 15,000</p>
+        <button class="order-btn" onclick="addToCart('C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\Jacket pia', 15000, '.jpeg', 'Clothes')">Order</button>
+    </div>
+    <div class="product">
+        <img src="C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\IMG-20250119-WA0034.jpg" alt="Black-Tee">
+        <h2>Black-Tee</h2>
+        <p>PKR 1500</p>
+        <button class="order-btn" onclick="addToCart('Black-Tee', 1500, 'C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\.jpg', 'Clothes')">Order</button>
+    </div>
+    <div class="product">
+        <img src="https://www.dropbox.com/scl/fi/a3sd7ksus3rp5xpwth3in/IMG-20250119-WA0007.jpg?rlkey=kmwxobutlemv5diqc8iczgxmo&st=94bqb0kp&dl=0" alt="Leather effect bomber">
+        <h2>Leather effect bomber</h2>
+        <p>PKR 18,100</p>
+        <button class="order-btn" onclick="addToCart('Leather effect bomber', 18100, 'https://www.dropbox.com/scl/fi/a3sd7ksus3rp5xpwth3in/IMG-20250119-WA0007.jpg?rlkey=kmwxobutlemv5diqc8iczgxmo&st=94bqb0kp&dl=0', 'Clothes')">Order</button>
+    </div>
+</div>
+
+<div class="footer">
+    <p>All Rights Reserved. Designed and Developed by EYA Group.</p>
+    <p>Contact us: <a href="mailto:info@lustrelane.com">info@lustrelane.com</a></p>
+</div>
+<script> 
+    function openMenu() {
+        document.getElementById("sideMenu").style.width = "250px";
+    }
+
+    function closeMenu() {
+        document.getElementById("sideMenu").style.width = "0";
+    }
+
+  
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+    function addToCart(name, price, image, category) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const item = {
+            id: Date.now().toString(),
+            name: name,
+            price: price,
+            image: image,
+            category: category
+        };
+        cart.push(item);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        showNotification('Item added to cart successfully!');
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,477 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lustre Lane</title>
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @font-face {
+            font-family: 'Regency Script';
+            src: url('path/to/RegencyScript.woff') format('woff'),
+                 url('path/to/RegencyScript.ttf') format('truetype');
+        }
+
+        body {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #381116;
+            height: 100%;
+        }
+
+        .discount-banner {
+            background-color: #471d23; 
+            color: #E8D8C4;
+            text-align: center;
+            padding: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            box-shadow: 0 4px 2px -2px gray;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .sliding-text-banner {
+            display: inline-block;
+            animation: slide-banner 10s linear infinite;
+        }
+
+        @keyframes slide-banner {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            background-image: url('images/WhatsApp_Image.jpeg');
+            background-size: contain;
+            background-position: center;
+            padding: 50px;
+            position: relative;
+            transition: transform 1s ease-in-out; /* Added smooth transition */
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #381116b3; 
+            padding: 10px 20px;
+            border-radius: 10px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header h1 {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; 
+            font-size: 50px;
+            color: #E8D8C4;
+            margin: 0;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            max-width: 100px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-icon {
+            font-size: 24px;
+            color: #E8D8C4;
+            background-color: rgba(56, 17, 22, 0.7); 
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .search-bar {
+            width: 0;
+            overflow: hidden;
+            transition: width 0.4s ease-in-out;
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 10px;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            width: 200px;
+            box-sizing: border-box;
+        }
+
+        .search-container:hover .search-bar {
+            width: 200px;
+        }
+
+        .icon {
+            font-size: 20px;
+            color: #E8D8C4;
+            background-color: rgba(56, 17, 22, 0.7); 
+            padding: 5px 10px;
+            border-radius: 50%;
+            cursor: pointer; 
+            text-decoration: none;
+            margin-left: 0.5px; 
+            z-index: 10; /* Ensure icons are on top */
+        }
+
+        .icon:hover {
+            color: #C7B7A3;
+        }
+
+        .side-menu {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #471d23;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .side-menu a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #E8D8C4;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .side-menu a:hover {
+            color: #C7B7A3;
+        }
+
+        .side-menu .close-btn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        .open-btn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #471d23;
+            color: #E8D8C4;
+            padding: 10px 15px;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        .open-btn:hover {
+            background-color: #C7B7A3;
+        }
+
+        .categories {
+            margin-bottom: 20px;
+        }
+        /* Main Slider Container */
+            .slider {
+                position: relative;
+                width: 100%;
+                max-width: 1000px; /* Adjust the width as per your preference */
+                margin: 20px auto;
+                overflow: hidden; /* Hide anything outside the container */
+                border-radius: 10px;
+            }
+    
+            /* Slides Container: Display images in a horizontal row */
+            .slides {
+                display: flex;
+                transition: transform 0.5s ease-in-out; /* Smooth sliding transition */
+            }
+    
+            /* Each Image should take up full width of the slider */
+            .slides img {
+                width: 100%; /* Ensure the image takes up full width */
+                height: auto; /* Let the height adjust automatically to maintain aspect ratio */
+                object-fit: cover; /* Ensure the image covers the full area without stretching */
+                border-radius: 10px;
+            }
+    
+            /* Button styles for next and previous */
+            .prev, .next {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 24px;
+                background-color: rgba(0, 0, 0, 0.5);
+                color: #fff;
+                border: none;
+                padding: 10px;
+                cursor: pointer;
+                border-radius: 50%;
+                z-index: 10;
+            }
+    
+            .prev {
+                left: 10px;
+            }
+    
+            .next {
+                right: 10px;
+            }
+
+        .footer {
+            background-color: #471d23;
+            color: #E8D8C4;
+            text-align: center;
+            padding: 0.02px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .footer a {
+            color: #C7B7A3;
+            text-decoration: underline;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .slider {
+            position: relative;
+            width: 80%;  
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 1s ease-in-out;
+        }
+
+        .slides img {
+            width: 100%;
+            height: auto;
+            object-fit: cover; 
+            max-width: 700px;  
+        }
+
+        /* New Arrivals Section */
+        .new-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .new-section h2 {
+            color: #E8D8C4;
+            margin-bottom: 20px;
+        }
+
+        /* New arrivals image styling */
+        .new-arrivals-images {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: slideImages 4s forwards;
+        }
+
+        .new-arrivals-images img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            margin: 10px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform: translateY(100px);
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        @keyframes slideUp {
+            0% {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideImages {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Button styles for slider navigation */
+        .prev, .next {
+            font-size: 20px;
+            background-color: rgba(56, 17, 22, 0.7);
+            color: #E8D8C4;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- Discount Banner -->
+    <div class="discount-banner">
+        <div class="sliding-text-banner">Enjoy exclusive discounts on trendy fits</div>
+    </div>
+
+    <!-- Header Section -->
+    <div class="header">
+        <div class="header-content">
+            <img src="C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\Logo.jpeg" alt="Logo" class="logo">
+            <h1>Lustre Lane</h1>
+            <div class="search-container">
+                <span class="search-icon" onclick="toggleSearchBar()"><i class="fas fa-search"></i></span>
+                <div class="search-bar" id="searchBar">
+                    <input type="text" placeholder="Search...">
+                </div>
+            </div>
+            <a href="cart.html" class="icon"><i class="fas fa-shopping-cart"></i></a>
+            <a href="contact.html" class="icon"><i class="fas fa-user"></i></a>
+            <a href="file:///C:/Users/iqra/OneDrive/Desktop/AICT%20Project%20Semester%2001/index.html" class="icon"><i class="fas fa-home"></i></a>
+        </div>
+    </div>
+
+    <!-- Categories Button -->
+    <div class="categories">
+        <button class="open-btn" onclick="openMenu()">☰ Menu</button>
+    </div>
+
+    <!-- Side Menu -->
+    <div id="sideMenu" class="side-menu">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
+        <a href="clothes a.html">Clothes</a>
+        <a href="shoes a.html">Shoes</a>
+        <a href="accessories a.html">Accessories</a>
+        <a href="scents.html">Scents</a>
+    </div>
+
+        <!-- Main Slider Section -->
+        <div class="slider">
+            <div class="slides">
+                <img src="C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\1st (1).jpeg" alt="Image 1">
+                <img src="C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\2nd.jpeg" alt="Image 2">
+            </div>
+            <button class="prev" onclick="moveSlide(-1)">❮</button>
+            <button class="next" onclick="moveSlide(1)">❯</button>
+        </div>
+    
+
+    <!-- New Arrivals Section -->
+    <div class="new-section">
+        <h2>New Arrivals</h2>
+        <div class="new-arrivals-images">
+            <img src="C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\IMG-20250119-WA0022.jpg" alt="New Arrival 1">
+            <img src="C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\IMG-20250119-WA0007.jpg" alt="New Arrival 2">
+            <img src="C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\IMG-20250119-WA0014.jpg" alt="New Arrival 3">
+            <img src="C:\Users\iqra\OneDrive\Desktop\AICT Project Semester 01\Images\IMG-20250119-WA0028.jpg" alt="New Arrival 4">
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+         <p>All Rights Reserved. Designed and Developed by EYA Group.</p>
+        <p>Contact us: <a href="mailto:info@lustrelane.com">info@lustrelane.com</a></p>
+    </div>
+
+    <!-- Slider Script -->
+    <script>
+        var slideIndex = 0;
+
+        function moveSlide(n) {
+            var slides = document.getElementById("slides");
+            var totalSlides = slides.children.length;
+
+            slideIndex += n;
+
+            if (slideIndex < 0) { slideIndex = totalSlides - 1;} 
+            if (slideIndex >= totalSlides) { slideIndex = 0;} 
+
+            slides.style.transform = "translateX(" + (-slideIndex * 100) + "%)";
+        }
+
+        function openMenu() {
+            document.getElementById("sideMenu").style.width = "250px";
+        }
+
+        function closeMenu() {
+            document.getElementById("sideMenu").style.width = "0";
+        }
+
+        function toggleSearchBar() {
+            const searchBar = document.getElementById('searchBar');
+            searchBar.style.width = searchBar.style.width === '200px' ? '0' : '200px';
+        }
+    </script>
+
+</body>
+</html>
